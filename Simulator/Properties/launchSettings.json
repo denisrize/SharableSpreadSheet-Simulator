@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Simulator": {
+      "commandName": "Project",
+      "commandLineArgs": "10 20 5 5 500"
+    }
+  }
+}

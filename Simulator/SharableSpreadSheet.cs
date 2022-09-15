@@ -380,7 +380,7 @@ namespace SharableSpreadSheet
             double newPrecent;
             if (nRows * nCols >= 100000) newPrecent = 0.01;
             else if (nRows * nCols >= 10000) newPrecent = 0.05;
-            else if (nRows * nCols >= 1000) newPrecent = 0.1;
+            else if (nRows * nCols >= 1000) newPrecent = 0.12;
             else newPrecent = 0.15;
 
             if (precent != newPrecent)

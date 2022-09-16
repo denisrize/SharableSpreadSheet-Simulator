@@ -19,12 +19,38 @@ In addition there is another lock for the all spreed-sheet for some operation th
 | -------------      | -------------       |
 | 100000>            | 0.01                |
 | 10000>             | 0.05                | 
-| 1000>              | 0.12                |
-| else               | 0.15                |
+| 1000>              | 0.1                 |
+| else               | 0.12                |
 
 ### Demonstration
-Example of Spreed-sheet size 10*10 and the compatible locks table: 
+Example of Spreed-sheet size 10*10 and the compatible locks table(0.12%): 
 ![Spread-Sheet](https://user-images.githubusercontent.com/55393990/190423753-5d9a8b4d-79aa-49a1-8898-f43b14197813.png)
 
+### Operations
 
+The operations on the spread-sheet are the following:
+- get/set cell info.
+- exchange rows/colmuns.
+- search in row/colmun.
+- search in range.
+- add row/colmun.
+- find all (perform search and return all relevant cells according to caseSensitive param).
+- set all (replace all old string cells with the new string according to caseSensitive param).
+- get size.
+- save/load spread-sheet (you can decide the format you save the data).
+
+All of this operations request different number of locks( read/write) to accomplish their goal. For example to exchange rows in spread-sheet you need to acquire  writer locks on each row, while adding a row requires to lock the entire spreed-sheet starting from the lower row to accomplish Thread safe operation.
+
+## Simulator
+I wanted to test and debug my spread-sheet under 'stress' of multiple clients, so i implement a console application simulator for multiple threads to use the spread sheet.
+My program work as follow (input arguments):
+Simulator < rows > < cols > < nThreads > < nOperations > < mssleep >
+
+1. Simulator start with a creation of new spreadsheet in a size of rows*cols.
+2. After the creation of empty table,i filled the empty spreadsheet with random strings.
+3. Start nThreads number of threads (users) concurrently works on the object. nOperations is the number of random operations each thread performs with a sleep of <sleep> millisecond between each operation it perform.
+  
+ Output example for input of 20 20 10 5 500 -  
+
+![newConsoleResult](https://user-images.githubusercontent.com/55393990/190705415-0fbc8c40-6ade-46d4-acb9-4489fe20c6fc.png)
 
